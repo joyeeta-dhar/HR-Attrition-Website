@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+*.pyc
+
+# Virtual environment
+backend/venv/
+venv/
+.env
+*.env
+
+# Database
+*.db
+*.sqlite3
+
+# Node
+frontend/node_modules/
+node_modules/
+
+# Build output
+frontend/dist/
+
+# ML model artifacts (large files — re-generate locally)
+backend/app/ml/*.pkl
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
