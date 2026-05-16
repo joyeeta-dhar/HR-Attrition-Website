@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Predict from './pages/Predict';
+import MeshBackground from './components/MeshBackground';
+import CursorFollower from './components/CursorFollower';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -36,7 +38,9 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col selection:bg-primary/30 relative bg-[#020617] text-slate-300">
+      <MeshBackground />
+      <CursorFollower />
       <Navbar isAuthenticated={isAuthenticated} onLogout={handleLogout} />
       <main className="flex-grow pt-16">
         <Routes>
