@@ -26,8 +26,8 @@ node_modules/
 # Build output
 frontend/dist/
 
-# ML model artifacts (large files — re-generate locally)
-backend/app/ml/*.pkl
+# ML model artifacts — included in repo (small size, needed for deployment)
+# backend/app/ml/*.pkl
 
 # OS
 .DS_Store
