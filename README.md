@@ -8,6 +8,16 @@
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
 
+### 🌐 Live Demo
+
+| Service | URL |
+|---|---|
+| **Frontend (Vercel)** | [https://hr-attrition-website.vercel.app](https://hr-attrition-website.vercel.app) |
+| **Backend API (Render)** | [https://hr-attrition-api-k6by.onrender.com](https://hr-attrition-api-k6by.onrender.com) |
+| **API Docs (Swagger)** | [https://hr-attrition-api-k6by.onrender.com/docs](https://hr-attrition-api-k6by.onrender.com/docs) |
+
+> ⚠️ The backend is hosted on Render's free tier and may take **~30 seconds to wake up** after a period of inactivity. Please be patient on the first request.
+
 ---
 
 ## Table of Contents
