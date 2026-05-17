@@ -15,9 +15,24 @@ app = FastAPI(
 )
 
 # CORS configuration
+origins = [
+    "http://localhost:5173",
+    "http://localhost:61323",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:61323",
+    "http://localhost:3000",
+    "http://localhost:8000",
+    "https://hr-attrition-website.vercel.app",
+    "https://hr-attrition-website-rhwrhmmhr-joyeeta-dhars-projects.vercel.app",
+]
+
+# Add Dynamic FRONTEND_URL from settings if configured
+if settings.FRONTEND_URL and settings.FRONTEND_URL not in origins:
+    origins.append(settings.FRONTEND_URL)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:61323", "http://127.0.0.1:5173", "http://127.0.0.1:61323", "http://localhost:3000", "http://localhost:8000"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
