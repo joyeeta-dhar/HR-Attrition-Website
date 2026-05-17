@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import { getPredictions } from '../services/api';
+import { getPredictions, getAnalytics } from '../services/api';
 import { Clock, CheckCircle2, XCircle, Users, Activity, TrendingUp, AlertTriangle, Layers } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function Dashboard() {
   const [predictions, setPredictions] = useState([]);
+  const [globalStats, setGlobalStats] = useState({ total_users: 0, total_predictions: 0 });
   const [isLoading, setIsLoading] = useState(true);
 
   const NEON_COLORS = ['#06b6d4', '#d946ef', '#3b82f6', '#10b981'];
@@ -48,8 +49,12 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const predsResponse = await getPredictions();
+        const [predsResponse, statsResponse] = await Promise.all([
+          getPredictions(),
+          getAnalytics()
+        ]);
         setPredictions(predsResponse);
+        setGlobalStats(statsResponse);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       } finally {
@@ -72,19 +77,36 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
-      <motion.div 
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        className="flex items-center space-x-4 mb-12"
-      >
-        <div className="p-3 bg-primary/20 rounded-2xl border border-primary/30">
-          <Activity className="h-6 w-6 text-primary" />
-        </div>
-        <div>
-          <h1 className="text-4xl font-black text-white">Advanced <span className="text-gradient">Intelligence</span></h1>
-          <p className="text-slate-400 font-medium">Monitoring organizational attrition health real-time.</p>
-        </div>
-      </motion.div>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12">
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="flex items-center space-x-4"
+        >
+          <div className="p-3 bg-primary/20 rounded-2xl border border-primary/30">
+            <Activity className="h-6 w-6 text-primary" />
+          </div>
+          <div>
+            <h1 className="text-4xl font-black text-white">Advanced <span className="text-gradient">Intelligence</span></h1>
+            <p className="text-slate-400 font-medium">Monitoring organizational attrition health real-time.</p>
+          </div>
+        </motion.div>
+
+        {/* Global Platform Activity badge */}
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="glass-card-neon px-6 py-3 flex items-center space-x-4 border border-primary/20 bg-primary/5 rounded-2xl"
+        >
+          <Users className="w-5 h-5 text-primary animate-pulse" />
+          <div>
+            <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Global Platform Activity</div>
+            <div className="text-sm font-bold text-white">
+              <span className="text-primary">{globalStats.total_users}</span> Active Admins | <span className="text-accent">{globalStats.total_predictions}</span> Total Runs
+            </div>
+          </div>
+        </motion.div>
+      </div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
